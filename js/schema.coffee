@@ -57,11 +57,15 @@ rebuild_schema = () ->
           type: "string"
           required: true
           enum: [
-            "Public", "Restricted", "Private"
+            "public", "restricted public", "non-public"
           ]
 
         #
         # required if available
+        accessLevelComment:
+          type: "string"
+          required: require_if_available()
+        
         dataDictionary:
           type: "string"
           format: "url"
@@ -108,7 +112,8 @@ rebuild_schema = () ->
 
         accrualPeriodicity:
           type: "string"
-          enum: ["hourly", "daily", "weekly", "yearly", "other"]
+          # Based on DCCDAccrualPeriodicity: http://www.ukoln.ac.uk/metadata/dcmi/collection-DCCDAccrualPeriodicity/
+          enum: ["Annual","Bimonthly","Semiweekly","Daily","Biweekly","Semiannual","Biennial","Triennial","Three times a week","Three times a month","Continuously updated","Monthly","Quarterly","Semimonthly","Three times a year","Weekly","Completely irregular"]
           required: require_extended()
 
         language:
